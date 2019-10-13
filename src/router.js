@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
-import store from '@/store.js'
+import store from '@/store.js';
 
 Vue.use(Router);
 
@@ -52,15 +52,12 @@ router.beforeEach((to, from, next) => {
       next({
         path: '/sign-in'
       });
+    } else {
+      next();
     }
-    else {
-      next()
-    }
-  }
-  else {
-    next()
+  } else {
+    next();
   }
 });
 
 export default router;
-

@@ -1,9 +1,13 @@
 <template>
   <v-container>
-    <v-row class='flex-column'>
-      <v-col class="display-2 font-weight-black brown--text text-xs-center my-5">Big Title Goes Here</v-col>
+    <v-row class="flex-column">
+      <v-col class="display-2 font-weight-black brown--text text-xs-center my-5"
+        >Big Title Goes Here</v-col
+      >
       <v-col>
-        <div class="headline mt-3 font-weight-bold brown--text">Lorem ipsum</div>
+        <div class="headline mt-3 font-weight-bold brown--text">
+          Lorem ipsum
+        </div>
         <p class="subheading mt-3">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia,
           consectetur cupiditate accusamus ipsa vero qui aliquam facilis
@@ -12,7 +16,9 @@
         </p>
       </v-col>
       <v-col>
-        <div class="headline mt-3 font-weight-bold brown--text">Lorem ipsum</div>
+        <div class="headline mt-3 font-weight-bold brown--text">
+          Lorem ipsum
+        </div>
         <p class="subheading mt-3">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia,
           consectetur cupiditate accusamus ipsa vero qui aliquam facilis
@@ -31,7 +37,9 @@
         </p>
       </v-col>
       <v-col>
-        <div class="headline mt-3 font-weight-bold brown--text">Lorem ipsum</div>
+        <div class="headline mt-3 font-weight-bold brown--text">
+          Lorem ipsum
+        </div>
         <p class="subheading mt-3">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia,
           consectetur cupiditate accusamus ipsa vero qui aliquam facilis

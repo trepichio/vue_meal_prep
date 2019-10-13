@@ -139,7 +139,11 @@ export default {
   methods: {
     ShowRecipes(plan) {
       this.$store.dispatch('getRecipes', plan);
-      this.$vuetify.goTo('#meal-recipes-container', {easing: 'easeInOutQuint', duration: 989, offset: 0})
+      this.$vuetify.goTo('#meal-recipes-container', {
+        easing: 'easeInOutQuint',
+        duration: 989,
+        offset: 0
+      });
     }
   }
 };

@@ -5,11 +5,11 @@ import store from './store';
 import vuetify from './plugins/vuetify';
 import '@babel/polyfill';
 // Firebase App (the core Firebase SDK) is always required and must be listed first
-import * as firebase from "firebase/app";
+import * as firebase from 'firebase/app';
 // Add the Firebase products that you want to use
-import "firebase/auth";
-import "firebase/database";
-import firebaseConfig from '@/firebase'
+import 'firebase/auth';
+import 'firebase/database';
+import firebaseConfig from '@/firebase';
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -22,10 +22,10 @@ new Vue({
   vuetify,
   render: h => h(App),
   created() {
-  	firebase.auth().onAuthStateChanged((user) => {
-  	 if (user) {
-  	   this.$store.dispatch('autoSignIn', user)
-  	 }
-  	})
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.$store.dispatch('autoSignIn', user);
+      }
+    });
   }
 }).$mount('#app');

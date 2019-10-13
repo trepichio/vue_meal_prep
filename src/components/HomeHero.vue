@@ -14,7 +14,17 @@
           Finally be a foodie at home with fresh, chef-prepared meals delivered
           daily to your door.
         </div>
-        <v-btn @click="$vuetify.goTo('#home-details-container', {easing: 'easeInOutQuint', duration: 989, offset: 0})" fab class="mt-5 brown darken-4">
+        <v-btn
+          @click="
+            $vuetify.goTo('#home-details-container', {
+              easing: 'easeInOutQuint',
+              duration: 989,
+              offset: 0
+            })
+          "
+          fab
+          class="mt-5 brown darken-4"
+        >
           <v-icon large color="white">mdi-chevron-down</v-icon>
         </v-btn>
       </v-col>

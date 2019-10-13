@@ -10,14 +10,19 @@
     >
       <v-list>
         <template v-for="(item, index) in items">
-          <v-list-item v-if='!isAuthenticated || item.visibleAuthenticated' link :key="index" :to='item.url'>
+          <v-list-item
+            v-if="!isAuthenticated || item.visibleAuthenticated"
+            link
+            :key="index"
+            :to="item.url"
+          >
             <v-list-item-content>
               <v-list-item-title>{{ item.title }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
           <v-divider :key="`divider-${index}`"></v-divider>
         </template>
-        <v-list-item v-if='isAuthenticated' @click='logout'>
+        <v-list-item v-if="isAuthenticated" @click="logout">
           <v-list-item-content>
             <v-list-item-title>Logout</v-list-item-title>
           </v-list-item-content>
@@ -36,13 +41,13 @@
       <v-btn to="/menu" text class="hidden-sm-and-down">Menu</v-btn>
       <div class="flex-grow-1 hidden-sm-and-down"></div>
 
-      <div v-if='!isAuthenticated' class="hidden-sm-and-down">
+      <div v-if="!isAuthenticated" class="hidden-sm-and-down">
         <v-btn to="/sign-in" text>SIGN IN</v-btn>
         <v-btn to="/join" color="brown ligthen-3">JOIN</v-btn>
       </div>
       <div v-else class="hidden-sm-and-down">
-        <v-btn to='/about' text>PROFILE</v-btn>
-        <v-btn @click="logout" text outlined color='white'>Logout</v-btn>
+        <v-btn to="/about" text>PROFILE</v-btn>
+        <v-btn @click="logout" text outlined color="white">Logout</v-btn>
       </div>
     </v-app-bar>
   </span>
@@ -55,31 +60,32 @@ export default {
   data() {
     return {
       items: [
-        { title: 'Menu'    , url: '/menu'    , visibleAuthenticated: true },
-        { title: 'Profile' , url: '/about'   , visibleAuthenticated: true },
-        { title: 'Sign In' , url: '/sign-in' , visibleAuthenticated: false },
-        { title: 'Join'    , url: '/join'    , visibleAuthenticated: false },
+        { title: 'Menu', url: '/menu', visibleAuthenticated: true },
+        { title: 'Profile', url: '/about', visibleAuthenticated: true },
+        { title: 'Sign In', url: '/sign-in', visibleAuthenticated: false },
+        { title: 'Join', url: '/join', visibleAuthenticated: false }
       ],
       drawer: null,
       appTitle: 'Meal Prep'
     };
   },
   computed: {
-    isAuthenticated () {
+    isAuthenticated() {
       return this.$store.getters.isAuthenticated;
     }
   },
   methods: {
-    logout () {
-      this.$store.dispatch('userSignOut')
+    logout() {
+      this.$store.dispatch('userSignOut');
     }
   }
 };
 </script>
 
 <style scoped>
-  a, a:visited {
-    color: white;
-    text-decoration: none;
-  }
+a,
+a:visited {
+  color: white;
+  text-decoration: none;
+}
 </style>

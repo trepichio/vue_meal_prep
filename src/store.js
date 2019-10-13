@@ -3,7 +3,7 @@ import Vuex from 'vuex';
 import axios from 'axios';
 import api from '@/api.config.js';
 import firebase from 'firebase';
-import router from '@/router'
+import router from '@/router';
 
 Vue.use(Vuex);
 
@@ -24,13 +24,13 @@ export default new Vuex.Store({
       return state.recipes;
     },
     isAuthenticated: state => {
-      return state.user !== null && state.user !== undefined
+      return state.user !== null && state.user !== undefined;
     },
     userRecipes: state => {
       return state.userRecipes;
     },
     error: state => {
-    	return state.error;
+      return state.error;
     }
   },
   mutations: {
@@ -38,20 +38,20 @@ export default new Vuex.Store({
       state.recipes = payload;
     },
     setUser(state, payload) {
-    	state.user = payload
+      state.user = payload;
     },
     setIsAuthenticated(state, payload) {
-    	state.isAuthenticated = payload
+      state.isAuthenticated = payload;
     },
     setUserRecipes(state, payload) {
-    	state.userRecipes = payload
+      state.userRecipes = payload;
     },
     setError(state, payload) {
-    	state.error = payload
+      state.error = payload;
     }
   },
   actions: {
-    async getRecipes({ state, getters, commit }, payload) {
+    async getRecipes({ getters, commit }, payload) {
       try {
         let response = await axios.get(getters.apiUrl, {
           params: {
@@ -67,88 +67,87 @@ export default new Vuex.Store({
         commit('setRecipes', []);
       }
     },
-    userJoin({ state, commit}, { email, password }) {
-			commit('setError', '')
-    	firebase
-    		.auth()
-    		.createUserWithEmailAndPassword(email, password)
-    		.then(user => {
-    			commit('setUser', user.user)
-    			commit('setIsAuthenticated', true)
-    			router.push('/about')
-    		})
-    		.catch((error) => {
-    			commit('setUser', null)
-    			commit('setIsAuthenticated', false)
-    			commit('setError', error)
-    		})
+    userJoin({ commit }, { email, password }) {
+      commit('setError', '');
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then(user => {
+          commit('setUser', user.user);
+          commit('setIsAuthenticated', true);
+          router.push('/about');
+        })
+        .catch(error => {
+          commit('setUser', null);
+          commit('setIsAuthenticated', false);
+          commit('setError', error);
+        });
     },
-    userLogin({ state, commit }, { email, password }) {
-			commit('setError', '')
-    	firebase
-    		.auth()
-    		.signInWithEmailAndPassword(email, password)
-    		.then(user => {
-    			commit('setUser', user.user)
-    			commit('setIsAuthenticated', true)
-    			router.push('/about')
-    		})
-    		.catch((error) => {
-    			commit('setUser', null)
-    			commit('setIsAuthenticated', false)
-    			commit('setError', error)
-    		})
+    userLogin({ commit }, { email, password }) {
+      commit('setError', '');
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+        .then(user => {
+          commit('setUser', user.user);
+          commit('setIsAuthenticated', true);
+          router.push('/about');
+        })
+        .catch(error => {
+          commit('setUser', null);
+          commit('setIsAuthenticated', false);
+          commit('setError', error);
+        });
     },
-    userSignOut({ state, commit }) {
-			commit('setError', '')
-    	firebase
-    		.auth()
-    		.signOut()
-    		.then(() => {
-    			commit('setUser', null)
-    			commit('setUserRecipes', null)
-    			commit('setIsAuthenticated', false)
-    			router.push('/')
-    		})
-    		.catch((error) => {
-    			commit('setUser', null)
-    			commit('setUserRecipes', null)
-    			commit('setIsAuthenticated', false)
-    		})
+    userSignOut({ commit }) {
+      commit('setError', '');
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          commit('setUser', null);
+          commit('setUserRecipes', null);
+          commit('setIsAuthenticated', false);
+          router.push('/');
+        })
+        .catch(() => {
+          commit('setUser', null);
+          commit('setUserRecipes', null);
+          commit('setIsAuthenticated', false);
+        });
     },
-    addRecipe({ state, commit }, payload) {
-    	firebase
-    	.database()
-    	.ref('users')
-    	.child(state.user.uid)
-    	.push({
-    		name: payload.recipe.label,
-    		calories: payload.recipe.calories,
-    		imageUrl: payload.recipe.image,
-    		healthLabels: payload.recipe.healthLabels,
-    		cautions: payload.recipe.cautions,
-    		uri: payload.recipe.uri
-    	})
+    addRecipe({ state }, payload) {
+      firebase
+        .database()
+        .ref('users')
+        .child(state.user.uid)
+        .push({
+          name: payload.recipe.label,
+          calories: payload.recipe.calories,
+          imageUrl: payload.recipe.image,
+          healthLabels: payload.recipe.healthLabels,
+          cautions: payload.recipe.cautions,
+          uri: payload.recipe.uri
+        });
     },
-    getUserRecipes({ state, commit }, payload) {
-    	return firebase
-    		.database()
-    		.ref('users/' + state.user.uid)
-    		.once('value', snapshot => {
-    			commit('setUserRecipes', snapshot.val() || {})
-    		})
+    getUserRecipes({ state, commit }) {
+      return firebase
+        .database()
+        .ref('users/' + state.user.uid)
+        .once('value', snapshot => {
+          commit('setUserRecipes', snapshot.val() || {});
+        });
     },
     autoSignIn({ commit }, payload) {
-      commit('setUser', payload)
+      commit('setUser', payload);
     },
 
-    deleteUserRecipe({ state, commit }, payload) {
-    	firebase
-    	.database()
-    	.ref('users/' + state.user.uid)
-    	.child(payload.id)
-    	.set(null)
-    },
-
+    deleteUserRecipe({ state }, payload) {
+      firebase
+        .database()
+        .ref('users/' + state.user.uid)
+        .child(payload.id)
+        .set(null);
+    }
   }
 });

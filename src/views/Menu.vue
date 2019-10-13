@@ -14,7 +14,7 @@ import MealRecipes from '@/components/MealRecipes.vue';
 export default {
   name: 'Menu',
   components: {
-  	HomePlans,
+    HomePlans,
     MealRecipes
   },
   data() {
